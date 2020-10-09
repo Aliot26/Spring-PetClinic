@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @Api("ApiController for Specialities")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class SpecialityApiController {
     private final SpecialityService specialityService;

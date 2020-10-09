@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @Api("ApiController for Roles")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class RoleApiController {
     private final RoleService roleService;

@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @Api("ApiController for Owners")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class OwnerApiController{
     private final OwnerService ownerService;

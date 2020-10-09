@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @Api("ApiController for Visits")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class VisitApiController {
     private final VisitService visitService;

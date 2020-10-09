@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @Api("ApiController for Pets")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class PetApiController {
     private final PetService petService;
