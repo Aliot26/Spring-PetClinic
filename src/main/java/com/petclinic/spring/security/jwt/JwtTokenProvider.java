@@ -47,7 +47,7 @@ public class JwtTokenProvider {
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(this.secret);
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 //    @PostConstruct
 //    protected void init(){
@@ -65,7 +65,7 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validaty)
-                .signWith(getSigningKey())
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
 //                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
