@@ -1,5 +1,6 @@
 package com.petclinic.spring.services.springdatajpa;
 
+import com.petclinic.spring.model.ERole;
 import com.petclinic.spring.model.Role;
 import com.petclinic.spring.model.Status;
 import com.petclinic.spring.model.User;
@@ -34,8 +35,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-        Role roleUser = roleRepository.findByName("ROLE_USER");
-        List<Role> userRoles = new ArrayList<>();
+       Role roleUser = roleRepository.findByName(ERole.ROLE_USER);
+        ArrayList<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

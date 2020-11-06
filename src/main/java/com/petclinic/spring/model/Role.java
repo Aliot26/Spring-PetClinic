@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
  *Created by olga on 10.09.2020
@@ -19,8 +17,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role extends BaseEntity {
+    @Enumerated(EnumType.STRING)
     @Column(name = "name")
-    private String name;
-
-
+    private ERole name;
 }

@@ -1,5 +1,6 @@
 package com.petclinic.spring.bootstrap;
 
+import com.petclinic.spring.model.ERole;
 import com.petclinic.spring.model.PetType;
 import com.petclinic.spring.model.Role;
 import com.petclinic.spring.model.Speciality;
@@ -73,11 +74,15 @@ public class DataLoader implements CommandLineRunner {
 
     private void loadRoles(){
         Role admin = new Role();
-        admin.setName("ADMIN");
+        admin.setName(ERole.ROLE_ADMIN);
         Role savedAdminRole = roleService.save(admin);
 
+        Role moderator = new Role();
+        moderator.setName(ERole.ROLE_MODERATOR);
+        Role saveModerRole = roleService.save(moderator);
+
         Role user = new Role();
-        user.setName("USER");
+        user.setName(ERole.ROLE_USER);
         Role savedUserRole = roleService.save(user);
     }
 }

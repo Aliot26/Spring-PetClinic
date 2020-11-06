@@ -1,5 +1,6 @@
 package com.petclinic.spring.services.springdatajpa;
 
+import com.petclinic.spring.model.ERole;
 import com.petclinic.spring.model.Role;
 import com.petclinic.spring.repositories.RoleRepository;
 import com.petclinic.spring.services.RoleService;
@@ -49,7 +50,7 @@ public class RoleJpaService implements RoleService {
     }
 
     @Override
-    public Role findByName(String name) {
+    public Role findByName(ERole name) {
         return roleRepository.findByName(name);
     }
 }
