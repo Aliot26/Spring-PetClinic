@@ -1,6 +1,8 @@
 package com.petclinic.spring.security;
 
 import com.petclinic.spring.dto.AuthenticationRequestDto;
+import com.petclinic.spring.dto.MessageResponse;
+import com.petclinic.spring.dto.RegistrationRequestDto;
 import com.petclinic.spring.model.User;
 import com.petclinic.spring.security.jwt.JwtTokenProvider;
 import com.petclinic.spring.services.UserService;
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,10 +34,16 @@ public class AuthenticationRestController {
 
     private final UserService userService;
 
-    public AuthenticationRestController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public AuthenticationRestController(AuthenticationManager authenticationManager,
+                                        JwtTokenProvider jwtTokenProvider,
+                                        UserService userService,
+                                        BCryptPasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/api/auth/signin")
@@ -61,4 +70,32 @@ public class AuthenticationRestController {
         }
     }
 
+    @PostMapping("/api/auth/signup")
+    public ResponseEntity<?> registerUser(@RequestBody RegistrationRequestDto signUpRequest) {
+        if (userService.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        if (userService.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+
+        User newUser = userService.register(signUpRequest);
+        String username = newUser.getUsername();
+        System.out.println(username + " register user");
+        System.out.println(newUser.getRoles());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, signUpRequest.getPassword()));
+        String token = jwtTokenProvider.createToken(username, newUser.getRoles());
+        Map<Object, Object> response = new HashMap<>();
+        response.put("username", username);
+        response.put("token", token);
+        System.out.println(newUser);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

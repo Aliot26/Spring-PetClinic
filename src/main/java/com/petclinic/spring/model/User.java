@@ -34,4 +34,9 @@ public class User extends BaseEntity {
     private Status status;
 
 
+    public User(String username,  String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
