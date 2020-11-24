@@ -5,6 +5,7 @@ import com.petclinic.spring.dto.MessageResponse;
 import com.petclinic.spring.dto.RegistrationRequestDto;
 import com.petclinic.spring.model.User;
 import com.petclinic.spring.security.jwt.JwtTokenProvider;
+import com.petclinic.spring.security.jwt.JwtUser;
 import com.petclinic.spring.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,16 +33,19 @@ public class AuthenticationRestController {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final JwtUserDetailsService jwtUserDetailsService;
+
     private final UserService userService;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
     public AuthenticationRestController(AuthenticationManager authenticationManager,
                                         JwtTokenProvider jwtTokenProvider,
-                                        UserService userService,
+                                        JwtUserDetailsService jwtUserDetailsService, UserService userService,
                                         BCryptPasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtUserDetailsService = jwtUserDetailsService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -59,10 +63,13 @@ public class AuthenticationRestController {
             }
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
-
+            JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(username);
             Map<Object, Object> response = new HashMap<>();
-            response.put("username", username);
             response.put("token", token);
+            response.put("username", jwtUser.getUsername());
+            response.put("id", jwtUser.getId());
+            System.out.println(jwtUser.getId());
+
 
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (AuthenticationException e) {

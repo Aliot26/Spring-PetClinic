@@ -34,6 +34,11 @@ public class OwnerJpaService implements OwnerService {
     }
 
     @Override
+    public Owner findByUserId(Long userId) {
+        return ownerRepository.findByUserId(userId);
+    }
+
+    @Override
     public List<Owner> findAllByLastNameLike(String lastName) {
         return ownerRepository.findAllByLastNameLike(lastName);
     }

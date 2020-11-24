@@ -35,6 +35,12 @@ public class OwnerApiController{
         return new ResponseEntity<Owner>(ownerService.findById(owner_id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will get the owner by user_id")
+    @GetMapping("/owners/user/{user_id}")
+    public ResponseEntity<Owner> getOwnerByUsername(@PathVariable Long user_id){
+        return new ResponseEntity<Owner>(ownerService.findByUserId(user_id), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "This will create new owner")
     @PostMapping("/owners")
     public ResponseEntity<Void> createOwner(@RequestBody Owner owner){

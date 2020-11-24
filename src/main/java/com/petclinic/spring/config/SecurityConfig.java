@@ -23,8 +23,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
-    private static String[] PATH_USERS_ARR = new String[]{"/", "index", "index.html", "/authenticate", "/vets/**", "/resources/**", "/api/auth/signin", "/images/**", "/api/vets", "/api/auth/signup"};
-    private static final String USER_ENDPOINT = "/owners/** ";
+    private static String[] PATH_USERS_ARR = new String[]{"/", "index", "index.html", "/authenticate", "/vets/**", "/resources/**", "/api/auth/signin", "/images/**", "/api/vets", "/api/auth/signup", "/api/owners/**"};
+    private static final String USER_ENDPOINT = "/visits ";
     private static String[] ADMIN_ENDPOINT = new String[]{"/admin/**", "api/vets/**"};
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/*";
 
