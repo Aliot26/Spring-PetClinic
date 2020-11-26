@@ -1,7 +1,7 @@
 package com.petclinic.spring.services;
 
 
-import com.petclinic.spring.dto.RegistrationRequestDto;
+import com.petclinic.spring.dto.SignupRequest;
 import com.petclinic.spring.model.User;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  *Created by olga on 02.09.2020
  */
 public interface UserService {
-    User register(RegistrationRequestDto user);
+    User register(SignupRequest user);
 
     List<User> getAll();
 

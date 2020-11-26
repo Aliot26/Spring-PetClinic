@@ -1,6 +1,6 @@
 package com.petclinic.spring.services.springdatajpa;
 
-import com.petclinic.spring.dto.RegistrationRequestDto;
+import com.petclinic.spring.dto.SignupRequest;
 import com.petclinic.spring.model.ERole;
 import com.petclinic.spring.model.Role;
 import com.petclinic.spring.model.Status;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(RegistrationRequestDto user) {
+    public User register(SignupRequest user) {
         User newUser = new User(user.getUsername(),
                 passwordEncoder.encode(user.getPassword()),
                 user.getEmail()
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User  findByUsername(String username) {
         User result = userRepository.findByUsername(username);
         if (result == null) {
             log.warn("In findByUsername - no user found by username {}", username);
@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
         }
         log.info("In findByUsername - user: {} found", result);
         return result;
+
     }
 
     @Override

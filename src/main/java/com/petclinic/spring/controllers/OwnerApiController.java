@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -36,6 +37,7 @@ public class OwnerApiController{
     }
 
     @ApiOperation(value = "This will get the owner by user_id")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/owners/user/{user_id}")
     public ResponseEntity<Owner> getOwnerByUsername(@PathVariable Long user_id){
         return new ResponseEntity<Owner>(ownerService.findByUserId(user_id), HttpStatus.OK);
