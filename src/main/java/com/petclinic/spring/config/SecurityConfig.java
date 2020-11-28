@@ -26,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static String[] PATH_USERS_ARR = new String[]{"/", "index", "index.html", "/resources/**", "/api/auth/signin", "/images/**", "/api/auth/signup"};
-    private static String[] USER_ENDPOINT = new String[]{"/owners/user/** "};
+    private static String[] USER_ENDPOINT = new String[]{"/owners/user/** ", "/owners/**"};
     private static String[] ADMIN_ENDPOINT = new String[]{"vets/**"};
 //    private static String[] MODER_ENDPOINT = new String[]{"/admin/**", "api/vets/**"};
 

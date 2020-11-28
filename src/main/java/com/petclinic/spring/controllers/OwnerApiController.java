@@ -31,6 +31,7 @@ public class OwnerApiController{
     }
 
     @ApiOperation(value = "This will get the owner")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/owners/{owner_id}")
     public ResponseEntity<Owner> getOwnerById(@PathVariable Long owner_id){
         return new ResponseEntity<Owner>(ownerService.findById(owner_id), HttpStatus.OK);
@@ -39,7 +40,7 @@ public class OwnerApiController{
     @ApiOperation(value = "This will get the owner by user_id")
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/owners/user/{user_id}")
-    public ResponseEntity<Owner> getOwnerByUsername(@PathVariable Long user_id){
+    public ResponseEntity<Owner> getOwnerByUserId(@PathVariable Long user_id){
         return new ResponseEntity<Owner>(ownerService.findByUserId(user_id), HttpStatus.OK);
     }
 
@@ -51,6 +52,7 @@ public class OwnerApiController{
     }
 
     @ApiOperation(value = "This will update owner's details")
+    @PreAuthorize("hasRole('USER')")
     @PatchMapping("/owners/{owner_id}")
     public ResponseEntity<Void> updateOwner(@RequestBody Owner owner){
         ownerService.save(owner);
