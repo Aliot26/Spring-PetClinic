@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -31,6 +32,7 @@ public class PetApiController {
     }
 
     @ApiOperation(value = "This will get the pet")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/pets/{pet_id}")
     public ResponseEntity<Pet> getPetById(@PathVariable Long pet_id){
         return new ResponseEntity<Pet>(petService.findById(pet_id), HttpStatus.OK);

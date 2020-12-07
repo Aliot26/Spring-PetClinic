@@ -25,8 +25,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(
         prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static String[] PATH_USERS_ARR = new String[]{"/", "index", "index.html", "/resources/**", "/api/auth/signin", "/images/**", "/api/auth/signup"};
-    private static String[] USER_ENDPOINT = new String[]{"/owners/user/** ", "/owners/**"};
+    private static String[] GUESS_ARR = new String[]{"/", "index", "index.html", "/resources/**", "/api/auth/signin", "/images/**", "/api/auth/signup"};
+    private static String[] USER_ENDPOINT = new String[]{"/owners/user/** ", "/owners/**", "/pets/**", "/petTypes/**"};
     private static String[] ADMIN_ENDPOINT = new String[]{"vets/**"};
 //    private static String[] MODER_ENDPOINT = new String[]{"/admin/**", "api/vets/**"};
 
@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers(PATH_USERS_ARR).permitAll()
+                .authorizeRequests().antMatchers(GUESS_ARR).permitAll()
 //                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .antMatchers(USER_ENDPOINT).hasRole("USER")
                 .anyRequest().authenticated();

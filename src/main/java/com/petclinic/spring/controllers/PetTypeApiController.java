@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -25,6 +26,7 @@ public class PetTypeApiController {
     }
 
     @ApiOperation(value = "This will get list of petTypes")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/petTypes")
     public ResponseEntity<Set<PetType>> getPetTypes(){
         return new ResponseEntity<Set<PetType>>(petTypeService.findAll(), HttpStatus.OK);
